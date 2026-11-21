@@ -6,10 +6,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="canonical" href="https://dvynsh3.github.io/TimeTravel-Planner-NM/">
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="description" content="Free mobile-friendly Time Shard calculator and planner for NecroMerger: Time Machine yield, experiment planner and spender, rune costs and shareable saves.">
+<meta name="description" content="Mobile-first Time Shard calculator and planner for NecroMerger: plan Inventor spending, estimate shards per run, and see how many legendaries and runes you need. Share your setup with a link.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Time-Travel Planner for NecroMerger">
-<meta property="og:description" content="Time Shard calculator, experiment planner and spender, rune costs and shareable saves.">
+<meta property="og:description" content="Plan Time Shard spending, estimate shards per run, and see the legendaries and runes you need. Share your setup with a link.">
 <meta property="og:url" content="https://dvynsh3.github.io/TimeTravel-Planner-NM/">
 <meta property="og:image" content="https://dvynsh3.github.io/TimeTravel-Planner-NM/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -471,12 +471,7 @@ const KEY='inventorPlanner.v1';
 let S={mode:'plan',plan:{},spend:{},hist:[],shards:0,prior:0,live:true,ex:{names:true,desc:true,planner:false,spoil:false}};
 try{const r=JSON.parse(localStorage.getItem(KEY)||'null'); if(r) S=Object.assign(S,r)}catch(e){}
 let spoilersOpen=false; // never persisted: always closed on load
-const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){};const c=document.getElementById('ex-cur');if(c)c.value=encodeState();const h=document.getElementById('helper-link');if(h)h.href=helperUrl()};
-// load share hash (GitHub-planner compatible for base ids 1..13, then "-" + II digits for 101..104)
-(function(){const h=location.hash.replace('#','');if(!h)return;const [b,a]=h.split('-');
-  S.plan={};(b||'').split('').forEach((c,i)=>{const l=+c;if(l>0&&l<=9){const e=ALL.find(x=>x.id===i+1);if(e)S.plan[e.id]=Math.min(l,e.costs.length)}});
-  (a||'').replace(/[^0-9]/g,'').slice(0,4).split('').forEach((c,i)=>{const l=+c;if(l>0){const e=ALL.find(x=>x.id===101+i);if(e)S.plan[e.id]=Math.min(l,e.costs.length)}});
-  S.mode='plan';})();
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){};const st=encodeState(),c=document.getElementById('ex-cur');if(c)c.value=shareLink(st);try{history.replaceState(null,'','#'+st)}catch(e){}const h=document.getElementById('helper-link');if(h)h.href=helperUrl()};
 
 /* ---------- toast ---------- */
 let tt;function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),1800)}
@@ -552,14 +547,6 @@ function render(){
   if(m==='plan')renderPlan();else if(m==='spend')renderSpend();else updateTM();
   save();
 }
-function pushHash(){
-  const b=[];for(let id=1;id<=13;id++)b.push(S.plan[id]||0);
-  const a=[101,102,103,104].map(i=>S.plan[i]||0);
-  const hasA=a.some(x=>x>0);
-  const h='#'+b.join('')+(hasA?'-'+a.join(''):'');
-  try{history.replaceState(null,'',h)}catch(e){}
-  return location.href.split('#')[0]+h;
-}
 function keepScroll(fn){const y=window.scrollY;fn();window.scrollTo(0,y)}
 
 $('tab-plan').onclick=()=>{S.mode='plan';render();window.scrollTo(0,0)};
@@ -572,7 +559,7 @@ document.addEventListener('click',ev=>{
   if(t.classList.contains('chip')){
     const id=+t.dataset.id,l=+t.dataset.l;const cur=S.plan[id]||0;
     S.plan[id]=(cur===l)?l-1:l;if(!S.plan[id])delete S.plan[id];
-    pushHash();keepScroll(render);return}
+    keepScroll(render);return}
   if(t.dataset.buy){
     const e=ALL.find(x=>x.id==t.dataset.buy);const lv=S.spend[e.id]||0;
     if(lv>=e.costs.length)return;
@@ -584,7 +571,7 @@ document.addEventListener('click',ev=>{
     const i=S.hist.lastIndexOf(id);if(i>-1)S.hist.splice(i,1);keepScroll(render);return}
 });
 $('reset').onclick=()=>{S.spend={};S.hist=[];render()};
-$('plan-clear').onclick=()=>{S.plan={};try{history.replaceState(null,'',location.pathname)}catch(e){}render()};
+$('plan-clear').onclick=()=>{S.plan={};render()};
 const inp=$('shards');
 inp.value=S.shards?String(S.shards):'';
 inp.addEventListener('focus',()=>{S.live=false;renderSpend();save()});
@@ -821,7 +808,7 @@ function encodeState(){
 }
 function loadState(str){
   try{
-    let s=String(str).trim().replace(/\s+/g,'');const k=s.indexOf('NM-TimeTravel-');if(k>=0)s=s.slice(k+14);s=s.replace(/\.png$/i,'').replace(/\(\d+\)$/,'');
+    let s=String(str).trim().replace(/\s+/g,'');const hh=s.lastIndexOf('#');if(hh>=0)s=s.slice(hh+1);const k=s.indexOf('NM-TimeTravel-');if(k>=0)s=s.slice(k+14);s=s.replace(/\.png$/i,'').replace(/\(\d+\)$/,'');
     if(!/^[A-Za-z0-9_-]{3,300}$/.test(s))return false;
     const r=new BR(s);if(r.r(4)!==8n)return false;
     const hp=r.r(1)===1n,hs=r.r(1)===1n;
@@ -851,7 +838,7 @@ const IMGICON=pxsvg(['WWWWWWWWWWWWW','W...........W','W..WW.......W','W..WW.....
 function exportSheet(){const x=S.ex,tg=(id,on,label)=>`<button class="mini ${on?'on':''}" id="${id}" aria-pressed="${on}">${label}</button>`;
 return `<div class="ex-l">Load</div><div class="ex-line"><input id="ex-load" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Load string"><button class="btn sq" id="ex-img" aria-label="Load from image">${IMGICON}</button><button class="btn" id="ex-load-btn">Load</button></div><input type="file" id="ex-file" accept="image/*" hidden>
 <p class="note ex-hint">Can also input the link from <a href="https://drallieiv.github.io/NecroMerger-Inventor/" target="_blank" rel="noopener">Drallieiv Helper</a>.</p>
-<div class="ex-l">Current</div><div class="ex-line"><input id="ex-cur" type="text" readonly value="${encodeState()}" aria-label="Current string"><button class="btn" id="ex-copy">Copy</button></div>
+<div class="ex-l">Current</div><div class="ex-line"><input id="ex-cur" type="text" readonly value="${shareLink(encodeState())}" aria-label="Current link"><button class="btn" id="ex-copy">Copy</button></div>
 <div class="ex-grid">${tg('ex-names',x.names,'Show names')}${tg('ex-desc',x.desc,'Show description')}${tg('ex-src',x.planner,x.planner?'Using Planner':'Using Spender')}${tg('ex-spoil',x.spoil,'Show Lvl 100+')}</div>
 <div class="ex-act"><button class="btn" id="ex-png">Export to PNG</button></div>`}
 
@@ -943,11 +930,15 @@ function loadHelperLink(str){
   S.plan=plan;render();return true}
 function loadAny(str){return loadHelperLink(str)?'helper':(loadState(str)?'state':false)}
 
+const LIVE_URL='https://dvynsh3.github.io/TimeTravel-Planner-NM/';
+function shareLink(st){const web=/^https?:$/.test(location.protocol)&&!/^(localhost|127\.|\[::1\])/.test(location.hostname);return (web?location.origin+location.pathname:LIVE_URL)+'#'+(st||encodeState())}
+
 function fitHG(){const z=parseFloat(getComputedStyle(document.documentElement).zoom)||1,ppx=(window.devicePixelRatio||1)*z;
   document.querySelectorAll('img.hg').forEach(im=>{const k=Math.max(1,Math.round(+im.dataset.h*ppx/71));im.style.height=(71*k/ppx)+'px';im.style.width=(52*k/ppx)+'px'})}
 fitHG();window.addEventListener('resize',fitHG);
 
 if('serviceWorker' in navigator&&/^https?:/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});
+if(location.hash.length>1){let h=location.hash.slice(1);try{h=decodeURIComponent(h)}catch(e){}const before=encodeState();if(loadAny(h)&&encodeState()!==before)setTimeout(()=>toast('Loaded from link'),400)}
 render();
 </script>
 </body>
