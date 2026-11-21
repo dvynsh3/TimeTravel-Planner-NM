@@ -6,8 +6,8 @@ This is an unofficial fan tool. It is not affiliated with or endorsed by the dev
 Sprites (experiments, legendaries, runes, Time Machine, Time Shard icon), names and game data belong to the NecroMerger developers and are used here to describe the game for players. Images and numbers were taken from the NecroMerger Wiki (https://necromerger.wiki.gg/), whose text content is available under CC BY-SA 4.0. If a rights holder asks for anything to be removed, it will be removed.
 
 ## Community tools used as references
-- Drallieiv Helper (https://drallieiv.github.io/NecroMerger-Inventor/): experiment data was cross-checked against it, and this tool reads and writes its share-link format for compatibility.
-- UncleMumble's Time Shard Calculator (Google Sheets): the Time Machine formulas and rune costs were cross-checked against it.
+- Drallieiv Helper (https://drallieiv.github.io/NecroMerger-Inventor/): initial inspiration for this project. Experiment data was cross-checked against it, and this tool reads and writes its share-link format for compatibility.
+- UncleMumble's Time Shard calculator spreadsheet (https://docs.google.com/spreadsheets/d/1Ug5sJjNoo6mfVeCaRA4wmGCiYNOfYy8OiheXtA-aV3E/edit?usp=sharing): the Time Machine formulas and rune costs were cross-checked against it.
 
 ## Fonts (embedded in index.html)
 Pixelify Sans and Jersey 10, licensed under the SIL Open Font License 1.1 (https://openfontlicense.org). The licence texts are reproduced below.
