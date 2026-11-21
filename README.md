@@ -1,6 +1,6 @@
 # Time-Travel Planner for NecroMerger
 
-A free, mobile-first web tool for the mobile game **NecroMerger**. Plan your Time Shard spending for the Inventor, work out how many shards a run will give you, and share your setup with a short code or an exported png.
+A mobile-first web tool for the mobile game **NecroMerger**. Plan your Time Shard spending for the Inventor, work out how many shards a run will give you, how many legendaries you need to make and how many runes they will cost you. Share your setup with a link or an exported png.
 
 **Live site:** `https://dvynsh3.github.io/TimeTravel-Planner-NM/` 
 
