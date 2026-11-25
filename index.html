@@ -195,7 +195,6 @@ h2.sec{font-size:17px;margin:16px 0 4px}
 .lg-h{margin:0;font-size:22px}
 .lg-total{font-size:38px;font-weight:700;color:var(--gold);line-height:1}
 .grp{border:2px solid var(--gc);border-radius:8px;background:#1d0f2e;margin-top:12px;overflow:hidden}
-.grp.on{box-shadow:0 0 12px var(--gc)}
 .grp-h{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:var(--gcbg)}
 .grp-t{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:700;color:#fff}
 .dots{display:flex;gap:4px}
@@ -841,13 +840,19 @@ const RUNE_COST={lich:{ice:640},gorgon:{poison:640},harpy:{blood:640},reaper:{ic
  // group 4 = the sum of its two legendaries: Cursed = Lich + Reaper, Colossus = Gorgon + Cyclops, Infernal = Harpy + Archdemon
  cursed:{ice:2240,moon:640},colossus:{poison:2240,moon:640},infernal:{blood:1600,death:960}};
 const runeImg=k=>`<img class="px" src="${IMG['rune_'+k]}" alt="">`;
-// the level 1 station every legendary gives for free (what it would have cost in runes)
+// the level 1 station each legendary gives for free (what it would have cost in runes). The Cursed, Colossus and Infernal give none.
 const STATION={lich:{ice:20},gorgon:{poison:20},harpy:{blood:20},reaper:{ice:50,moon:20},cyclops:{poison:50,moon:20},archdemon:{blood:30,death:30},
- robochicken:{ice:30,poison:15},shieldbot:{cosmic:20},soulstalker:{death:200,cosmic:200},
- cursed:{ice:70,moon:20},colossus:{poison:70,moon:20},infernal:{blood:50,death:30}};
-const runeFor=(id,rt,n)=>{const c=(RUNE_COST[id]||{})[rt]||0;if(!c||n<=0)return 0;const free=S.tm.eff?((STATION[id]||{})[rt]||0):0;return n*(c-free)};
-function runeTotals(cnt){const o={};RUNES.forEach(([k])=>o[k]=0);LEG.forEach(l=>RUNES.forEach(([k])=>{o[k]+=runeFor(l.id,k,cnt[l.id]|0)}));return o}
-function runesNeeded(){const a=runeTotals(S.tm.leg),b=runeTotals(S.tm.tare||{}),ow=S.tm.eff?ownedRunes():null;const o={};RUNES.forEach(([k])=>o[k]=a[k]-b[k]-(ow?ow[k]:0));return o}
+ robochicken:{ice:30,poison:15},shieldbot:{cosmic:20},soulstalker:{death:200,cosmic:200}};
+/* Runes still needed to go from the tared count t to the planned count n.
+   Each legendary made spawns a free station, usable by the NEXT one of its kind, so with Effective costs on the
+   first one made costs the full amount and every later one costs base minus the free station.
+   Going below the tare gives runes back: the discounted ones first, the full-cost first one last. */
+function netRune(id,rt,n,t){const c=(RUNE_COST[id]||{})[rt]||0;if(!c)return 0;const f=S.tm.eff?((STATION[id]||{})[rt]||0):0;
+  if(n>t){const k=n-t;return k*c-(k-1)*f}
+  if(n<t){const j=t-n;return -(j*(c-f)+(j===t?f:0))}
+  return 0}
+function runesNeeded(){const ow=S.tm.eff?ownedRunes():null,tr=S.tm.tare||{},o={};
+  RUNES.forEach(([k])=>{let s=0;LEG.forEach(l=>{s+=netRune(l.id,k,S.tm.leg[l.id]|0,tr[l.id]|0)});o[k]=s-(ow?ow[k]:0)});return o}
 const fmtRune=n=>{const s=full(n);return s.length>6?(n<0?'-':'')+short(Math.abs(n)):s};
 const tareActive=()=>!!S.tm.tared;
 
