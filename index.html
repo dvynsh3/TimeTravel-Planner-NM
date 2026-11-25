@@ -32,7 +32,6 @@
   padding-top:env(safe-area-inset-top,0px);
 }
 *,*::before,*::after{box-sizing:inherit}
-@media (max-width:440px){html{zoom:.9}}
 html{background:var(--bg);scroll-padding-top:calc(env(safe-area-inset-top,0px) + 120px)}
 body{margin:0;background:var(--bg);color:var(--text);
   font-family:PxNum,Px,system-ui,sans-serif;font-synthesis:none;font-size:18px;line-height:1.3;letter-spacing:.2px;
@@ -459,15 +458,28 @@ header{background:radial-gradient(60% 100% at 22% 0%,#40205f 0%,rgba(26,15,43,0)
 .rnote{margin:8px 0 0}
 .popline{white-space:nowrap;overflow:hidden}
 .pill .gn{padding:0 5px}
+
+/* calculator operators centred on the boxes */
+.tmop{margin-top:21.6px;height:64px;display:flex;align-items:center;justify-content:center;line-height:1}
+
+/* header and tab row are one sticky bar on phones (no seam between them) */
+#topbar{display:contents}
+@media (max-width:999px){
+  #topbar{display:block;position:sticky;top:var(--sat);z-index:40;margin-inline:-12px;padding-inline:12px;background:radial-gradient(60% 100% at 22% 0%,#40205f 0%,rgba(26,15,43,0) 70%),var(--bg)}
+  #topbar header{position:static;margin:0;padding-inline:0;background:none}
+  #topbar .tabs{position:static;top:auto;margin:0;padding:6px 0 10px;background:none}
+}
 </style>
 </head>
 <body>
 <div class="wrap">
+  <div id="topbar">
   <header>
     <img class="px hg" data-h="54" src="data:image/png;base64,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" alt="Time Machine">
     <div><h1>Time-Travel Planner</h1><small>NecroMerger</small></div>
     <button class="hbtn" id="export-btn" aria-label="Export and share"></button>
   </header>
+  </div>
 
   <div id="layout">
 <div id="rightcol">
@@ -765,7 +777,7 @@ const LEG=[
  {id:'lich',name:'Lich',grp:1,first:10,extra:5},{id:'gorgon',name:'Gorgon',grp:1,first:10,extra:5},{id:'harpy',name:'Harpy',grp:1,first:10,extra:5},
  {id:'reaper',name:'Reaper',grp:2,first:20,extra:10},{id:'cyclops',name:'Cyclops',grp:2,first:20,extra:10},{id:'archdemon',name:'Archdemon',grp:2,first:20,extra:10,max:4},
  {id:'robochicken',name:'Robo Chicken',grp:3,first:20,extra:10,max:4},{id:'shieldbot',name:'Shield Bot',grp:3,first:30,extra:15,max:4},{id:'soulstalker',name:'Soul Stalker',grp:3,first:40,extra:20},
- {id:'cursed',name:'The Cursed',grp:4,first:40,extra:20},{id:'colossus',name:'The Colossus',grp:4,first:40,extra:20},{id:'infernal',name:'The Infernal',grp:4,first:40,extra:20}];
+ {id:'cursed',name:'The Cursed',grp:4,first:40,extra:20,max:1},{id:'colossus',name:'The Colossus',grp:4,first:40,extra:20,max:1},{id:'infernal',name:'The Infernal',grp:4,first:40,extra:20,max:1}];
 S.tm=Object.assign({lvl:50,feats:18,other:100,leg:{},tare:{},eff:false,hack:0,inv:{},stn:{}},S.tm||{});
 if(S.tm.tared===undefined)S.tm.tared=Object.values(S.tm.tare||{}).some(v=>v>0);
 
@@ -825,11 +837,14 @@ function breakdownHTML(){
 /* runes needed (base costs from the community sheet's Rune Planner) */
 const RUNES=[['ice','Ice'],['poison','Poison'],['blood','Blood'],['moon','Moon'],['death','Death'],['cosmic','Cosmic']];
 const RUNE_COST={lich:{ice:640},gorgon:{poison:640},harpy:{blood:640},reaper:{ice:1600,moon:640},cyclops:{poison:1600,moon:640},archdemon:{blood:960,death:960},
- robochicken:{ice:960,poison:480},shieldbot:{cosmic:640},soulstalker:{death:800,cosmic:800}};
+ robochicken:{ice:960,poison:480},shieldbot:{cosmic:640},soulstalker:{death:800,cosmic:800},
+ // group 4 = the sum of its two legendaries: Cursed = Lich + Reaper, Colossus = Gorgon + Cyclops, Infernal = Harpy + Archdemon
+ cursed:{ice:2240,moon:640},colossus:{poison:2240,moon:640},infernal:{blood:1600,death:960}};
 const runeImg=k=>`<img class="px" src="${IMG['rune_'+k]}" alt="">`;
 // the level 1 station every legendary gives for free (what it would have cost in runes)
 const STATION={lich:{ice:20},gorgon:{poison:20},harpy:{blood:20},reaper:{ice:50,moon:20},cyclops:{poison:50,moon:20},archdemon:{blood:30,death:30},
- robochicken:{ice:30,poison:15},shieldbot:{cosmic:20},soulstalker:{death:200,cosmic:200}};
+ robochicken:{ice:30,poison:15},shieldbot:{cosmic:20},soulstalker:{death:200,cosmic:200},
+ cursed:{ice:70,moon:20},colossus:{poison:70,moon:20},infernal:{blood:50,death:30}};
 const runeFor=(id,rt,n)=>{const c=(RUNE_COST[id]||{})[rt]||0;if(!c||n<=0)return 0;const free=S.tm.eff?((STATION[id]||{})[rt]||0):0;return n*(c-free)};
 function runeTotals(cnt){const o={};RUNES.forEach(([k])=>o[k]=0);LEG.forEach(l=>RUNES.forEach(([k])=>{o[k]+=runeFor(l.id,k,cnt[l.id]|0)}));return o}
 function runesNeeded(){const a=runeTotals(S.tm.leg),b=runeTotals(S.tm.tare||{}),ow=S.tm.eff?ownedRunes():null;const o={};RUNES.forEach(([k])=>o[k]=a[k]-b[k]-(ow?ow[k]:0));return o}
@@ -878,10 +893,9 @@ function updateTM(){
     $('lg-s-'+g.g).innerHTML=g.done?`${t.hack>0?`<b class="gn">${g.claims}/${g.cap}</b>`:CHECK}<span>Set +${g.bonus}%</span>`:`<span>All 3: +${GROUP_SET[g.g]}%</span>`});
   const rn=runesNeeded();RUNES.forEach(([k])=>{const el=$('rn-v-'+k);el.textContent=fmtRune(rn[k]);el.classList.toggle('neg',rn[k]<0)});
   const ta=tareActive();$('rn-tare').classList.toggle('on',ta);$('rn-tare').setAttribute('aria-pressed',ta?'true':'false');
-  const g4=['cursed','colossus','infernal'].some(id=>(t.leg[id]|0)>0||((t.tare||{})[id]|0)>0);
   $('rn-eff').textContent=t.eff?'Effective costs':'Base costs';$('rn-eff').setAttribute('aria-pressed',t.eff?'true':'false');
   $('rn-mode').textContent=(ta?'Tare: sets counts to zero\n':'')+(t.eff?'Minus current runes, stations and free stations':'Total runes for selected legendaries.');fitMode();
-  $('rn-note').textContent='Click the runes to add current amounts'+(g4?'\nThe Cursed, Colossus and Infernal have no rune data.':'');
+  $('rn-note').textContent='Click the runes to add current amounts';
   $('lg-total').textContent=fmtPct(lg.pct)+'%';
   $('lg-sum').textContent=`100% base + ${fmtPct(lg.pct-100)}% bonus`;
   $('lg-comp').classList.toggle('on',lg.all);$('lg-comp-n').textContent=`${lg.types}/12 owned`;
@@ -1152,7 +1166,7 @@ function effSheet(){
     return `<div class="lc"><img class="px" src="${st?IMG['st_'+s.id]:IMG['leg_'+l.id]}" alt=""><div class="lc-n">${st?s.name:l.name}</div>${cs.length===1?`<div class="lc-c m">${rv(cs[0])}</div>`:cs.map(c=>`<div class="lc-c">${rv(c)}</div>`).join('')}</div>`};
   return `<div class="infotxt"><div class="popline">Tare: sets counts to zero</div><div class="popline">${S.tm.eff?'Minus current runes, stations and free stations':'Total runes for selected legendaries.'}</div></div>
   <div class="poprow"><button class="mini popeff" id="pop-eff" aria-pressed="${S.tm.eff?'true':'false'}">${S.tm.eff?'Effective costs':'Base costs'}</button><button class="mini" id="pop-view">${st?'Stations':'Legendaries'}</button></div>`+
-    [1,2,3].map(g=>`<div class="lc-row">${LEG.filter(l=>l.grp===g&&RUNE_COST[l.id]).map(card).join('')}</div>`).join('');
+    (st?[1,2,3]:[1,2,3,4]).map(g=>`<div class="lc-row">${LEG.filter(l=>l.grp===g&&RUNE_COST[l.id]).map(card).join('')}</div>`).join('');
 }
 const HACK_TIERS=[{cost:50,e:'+0 » +1'},{cost:150,e:'+1 » +2'},{cost:300,e:'+2 » +3'}];
 function hackSheet(){
@@ -1163,8 +1177,21 @@ document.addEventListener('input',e=>{const el=e.target;if(el.classList&&el.clas
   S.tm.inv=S.tm.inv||{};S.tm.inv[el.dataset.rune]=parseInt(clean,10)||0;updInv();updateTM();save()}});
 document.addEventListener('focusin',e=>{if(e.target.classList&&e.target.classList.contains('rin')){const el=e.target;setTimeout(()=>el.select(),0)}});
 
+/* ===== same layout width in every phone browser (Chrome look = 433 layout px) ===== */
+function applyScale(){const w=window.innerWidth,de=document.documentElement,phone=w<=520;
+  de.style.zoom=phone?String(Math.max(0.6,Math.min(1.2,w/433.33))):'';
+  if(typeof setHH==='function')setHH();if(typeof fitHG==='function')fitHG();showDebug()}
+function showDebug(){if(!/[?&]debug\b/.test(location.search))return;let d=document.getElementById('dbg');if(!d){d=document.createElement('div');d.id='dbg';d.style.cssText='position:fixed;left:6px;top:6px;z-index:99;background:#000c;color:#0f0;font:12px monospace;padding:4px 6px;pointer-events:none';document.body.appendChild(d)}
+  d.textContent='inner '+window.innerWidth+' dpr '+window.devicePixelRatio+' zoom '+(document.documentElement.style.zoom||'-')+' screen '+screen.width}
+applyScale();window.addEventListener('resize',applyScale);window.addEventListener('orientationchange',applyScale);
+
+function placeTabs(){const tabs=document.querySelector('.tabs'),top=$('topbar');if(!tabs||!top)return;
+  if(desk()){const rc=$('rightcol');if(tabs.parentNode!==rc)rc.insertBefore(tabs,rc.firstChild)}
+  else if(tabs.parentNode!==top)top.appendChild(tabs)}
+placeTabs();
+
 function placeBar(){const bar=document.querySelector('.bar-bottom');(desk()?$('rightcol'):document.body).appendChild(bar)}
-placeBar();deskMQ.addEventListener('change',()=>{placeBar();render();setHH()});
+placeBar();deskMQ.addEventListener('change',()=>{placeBar();placeTabs();render();setHH()});
 if(location.hash.length>1){let h=location.hash.slice(1);try{h=decodeURIComponent(h)}catch(e){}const before=encodeState();if(loadAny(h)&&encodeState()!==before)setTimeout(()=>toast('Loaded from link'),400)}
 render();
 </script>
