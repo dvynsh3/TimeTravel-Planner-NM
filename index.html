@@ -527,8 +527,10 @@ html,body,#rightcol{overflow-anchor:none}
     <div class="frame note">Note: 15 additional Time Shards must be used at the first prestige for the Inventor to spawn the Time Machine.</div>
     <div id="plan-list"></div>
     <div id="plan-spoiler"></div>
-    <div class="frame">
-      <b>Inventions unlocked by total spend</b>
+    <div class="frame" style="margin-top:14px">
+      <b>Inventions</b>
+      <div class="note" id="plan-inv-line" style="margin-top:8px"></div>
+      <div class="bar"><i id="plan-invbar" style="width:0%"></i></div>
       <div class="inv" id="plan-inv"></div>
     </div>
     <div class="actions"><button class="btn danger" id="plan-clear">Clear all</button></div>
@@ -689,6 +691,9 @@ const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){};const
 let tt;function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),1800)}
 
 /* ---------- inventions ---------- */
+function invProgress(total,lineId,barId){const nx=INVENTIONS.find(v=>total<v.req);
+  $(lineId).textContent=nx?`Progress ${full(total)} / ${full(nx.req)} for ${nx.name}`:`Progress ${full(total)} · all inventions unlocked`;
+  $(barId).style.width=(nx?Math.min(100,total/nx.req*100):100)+'%'}
 function invHTML(total){return INVENTIONS.map(v=>`<div class="iv ${total>=v.req?'on':''}"><img class="px" src="${IMG[v.img]}" alt=""><div>${v.name}</div><div class="r">${shardImg()}${fmt(v.req)}</div></div>`).join('')}
 
 /* ---------- spoiler gate ---------- */
@@ -709,7 +714,7 @@ function renderPlan(){
   $('plan-list').innerHTML=BASE.map(planCard).join('');
   $('plan-spoiler').innerHTML = spoilersOpen ? spHead()+SPOIL.map(planCard).join('') : gateHTML();
   const t=planTotal();
-  $('plan-inv').innerHTML=invHTML(t);
+  $('plan-inv').innerHTML=invHTML(t);invProgress(t,'plan-inv-line','plan-invbar');
   $('bb-label').textContent='Total cost'; $('bb-val').textContent=full(t);
   const hidden=!spoilersOpen && SPOIL.some(e=>S.plan[e.id]);
   $('bb-extra').textContent=hidden?'incl. hidden picks':'';
@@ -740,9 +745,7 @@ function renderSpend(){syncLive();
   $('spent-line').textContent=`Spent ${full(spent)} of ${full(budget())}`+(remain<0?' · over budget, refund something':'');
   const itot=spent;
   $('spend-inv').innerHTML=invHTML(itot);
-  const nx=INVENTIONS.find(v=>itot<v.req);
-  $('inv-line').textContent=nx?`Progress ${full(itot)} / ${full(nx.req)} for ${nx.name}`:`Progress ${full(itot)} · all inventions unlocked`;
-  $('invbar').style.width=(nx?Math.min(100,itot/nx.req*100):100)+'%';
+  invProgress(itot,'inv-line','invbar');
   $('add-reset').disabled=!!S.live;
   $('bb-label').textContent='Shards left'; $('bb-val').textContent=full(remain);
   $('bb-val').classList.toggle('over',remain<0);
