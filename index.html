@@ -64,6 +64,15 @@ header small{display:block;color:var(--muted);font-size:14px}
 .shardbox input{font-family:inherit;flex:1;min-width:0;background:#12051e;border:2px solid var(--edge-d);color:var(--text);border-radius:6px;
   font-size:20px;padding:8px 12px}
 .shardbox input:focus{outline:none;border-color:var(--pink)}
+.shrow{display:flex;gap:8px}
+.shcol{flex:1;min-width:0}
+.shlab{display:flex;justify-content:space-between;align-items:center;height:26px;font-size:15px;color:var(--muted);margin-bottom:4px;gap:6px}
+.shrow .shardbox{gap:6px}
+.shrow .shardbox img{width:24px;height:24px;flex:none}
+.shrow .shardbox input{font-size:19px;padding:8px 8px}
+.rs{flex:none;width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;padding:0;border:2px solid var(--pink);background:var(--panel-d);border-radius:5px}
+.rs svg{width:12px;height:12px}
+.rs:disabled{opacity:.35;border-color:var(--edge-d)}
 .remain{display:flex;justify-content:space-between;align-items:baseline;margin-top:8px}
 .remain b{font-size:32px}
 .over{color:var(--red)}
@@ -193,6 +202,24 @@ h2.sec{font-size:17px;margin:16px 0 4px}
 .tmleg{padding:12px}
 .lg-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .lg-h{margin:0;font-size:22px}
+.lgh{font:inherit;color:inherit;background:none;border:0;padding:0;text-align:left}
+.lgh #lg-cap{border-bottom:2px dotted var(--edge)}
+.lgh #lg-cap.full{color:var(--gold)}
+.lgh #lg-cap.over{color:var(--red)}
+.cap-sum{font-size:30px;font-weight:700;margin-bottom:2px}.cap-sum small{font-size:17px;color:var(--muted);font-weight:400}
+.cap-res{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:6px 0}
+.cres{display:flex;align-items:center;gap:8px;padding:8px;border:2px solid var(--edge-d);background:#12051e;border-radius:6px;text-align:left;color:var(--text);min-width:0}
+.cres svg,.cres img{width:34px;height:34px;flex:none}
+.cres span{display:block;font-size:16px;line-height:1.15;min-width:0}
+.cres small{display:block;font-size:13px;color:var(--muted)}
+.cres.on{border-color:var(--green);background:var(--green-d)}
+.cres.lock{opacity:.85}
+.cap-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:6px 0}
+.ct{aspect-ratio:1;border:2px dashed var(--edge-d);border-radius:5px;display:flex;align-items:center;justify-content:center;background:#12051e;overflow:hidden}
+.ct.f{border-style:solid;border-color:var(--edge)}
+.ct.r{border-color:var(--gold)}
+.ct img,.ct svg{width:82%;height:82%}
+.cap-ign{display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:10px;font-size:18px}
 .lg-total{font-size:38px;font-weight:700;color:var(--gold);line-height:1}
 .grp{border:2px solid var(--gc);border-radius:8px;background:#1d0f2e;margin-top:12px;overflow:hidden}
 .grp-h{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:var(--gcbg)}
@@ -269,6 +296,9 @@ body.lock{overflow:hidden}
 .bd-total{display:flex;align-items:center;gap:10px;font-size:34px;margin-bottom:4px}
 .bd-total img{width:34px;height:34px}
 .bd-calc{font-size:19px;line-height:1.4;padding:8px 10px;margin:8px 0;background:#12051e;border:2px solid var(--edge-d);border-radius:6px;word-break:break-word}
+.bd-inc{display:flex;align-items:center;gap:10px;font-size:18px;margin:6px 0 4px;color:var(--text)}
+.bd-inc input{width:22px;height:22px;accent-color:var(--pink)}
+.bd-inc.off{opacity:.55}
 .bd-h{margin:14px 0 2px;font-size:18px;color:var(--gold);font-weight:700}
 .bd{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dashed #ffffff26;font-size:17px}
 .bd.sub{padding-left:14px;color:#e4d3f3}
@@ -278,8 +308,6 @@ body.lock{overflow:hidden}
 .hbtn{margin-left:auto;flex:none;width:46px;height:46px;padding:0;border:2px solid var(--edge-d);background:var(--panel);border-radius:6px;display:flex;align-items:center;justify-content:center}
 .hbtn svg{width:26px;height:23px;display:block}
 .hbtn:active{background:var(--green-d);border-color:var(--green)}
-.btn.live{flex:1}
-.btn.live.on{border-color:var(--pink)}
 .ex-l{display:block;font-size:19px;font-weight:700;color:var(--gold);margin:10px 0 6px}
 .ex-line{display:flex;gap:8px}
 .ex-line input{flex:1;min-width:0;background:#12051e;border:2px solid var(--edge-d);color:var(--text);border-radius:6px;font-family:inherit;font-size:17px;padding:10px}
@@ -501,17 +529,19 @@ header{background:radial-gradient(60% 100% at 22% 0%,#40205f 0%,rgba(26,15,43,0)
 <!-- SPENDER -->
   <section id="view-spend" hidden>
     <div class="frame">
-      <div class="shardbox">
-        <img class="px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAFVBMVEUAAAD29PP4d/y8Nr5/OpUpNm8MH0SLXKG6AAAAAXRSTlMAQObYZgAAAINJREFUeNqNzUUCAjEAQ1Ea6f2PTEaDM3/5Urldz0ufkBjDr0qs0W9KkC9DHsCmkFwn4uC6iLMDIomMvwzEljK4L8HmQGK8Nwxayv8D8adBS4h/Gtin+oVS1GbC7BcJkJeI12F3anaQtLnKccapRctLxuY7t8m4XjmZ8XKbjJbbrF7oDsQlBDQDD/iFAAAAAElFTkSuQmCC" alt="Time Shards">
-        <input id="shards" type="text" inputmode="decimal" autocomplete="off" placeholder="Enter Time Shards">
+      <div class="shrow">
+        <div class="shcol">
+          <div class="shlab"><span>Current shards</span></div>
+          <div class="shardbox"><img class="px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAFVBMVEUAAAD29PP4d/y8Nr5/OpUpNm8MH0SLXKG6AAAAAXRSTlMAQObYZgAAAINJREFUeNqNzUUCAjEAQ1Ea6f2PTEaDM3/5Urldz0ufkBjDr0qs0W9KkC9DHsCmkFwn4uC6iLMDIomMvwzEljK4L8HmQGK8Nwxayv8D8adBS4h/Gtin+oVS1GbC7BcJkJeI12F3anaQtLnKccapRctLxuY7t8m4XjmZ8XKbjJbbrF7oDsQlBDQDD/iFAAAAAElFTkSuQmCC" alt="Time Shards"><input id="cur" type="text" inputmode="decimal" autocomplete="off" placeholder="0" aria-label="Current shards"></div>
+        </div>
+        <div class="shcol">
+          <div class="shlab"><span>Additional shards</span><button class="rs" id="add-reset" aria-label="Reset additional shards to the calculator amount"></button></div>
+          <div class="shardbox"><img class="px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAFVBMVEUAAAD29PP4d/y8Nr5/OpUpNm8MH0SLXKG6AAAAAXRSTlMAQObYZgAAAINJREFUeNqNzUUCAjEAQ1Ea6f2PTEaDM3/5Urldz0ufkBjDr0qs0W9KkC9DHsCmkFwn4uC6iLMDIomMvwzEljK4L8HmQGK8Nwxayv8D8adBS4h/Gtin+oVS1GbC7BcJkJeI12F3anaQtLnKccapRctLxuY7t8m4XjmZ8XKbjJbbrF7oDsQlBDQDD/iFAAAAAElFTkSuQmCC" alt="Time Shards"><input id="shards" type="text" inputmode="decimal" autocomplete="off" placeholder="0" aria-label="Additional shards"></div>
+        </div>
       </div>
       <div class="remain"><span class="note">Remaining</span><b id="remain">0</b></div>
       <div class="bar"><i id="spentbar" style="width:0%"></i></div>
       <div class="note" id="spent-line" style="margin-top:4px"></div>
-      <div class="actions">
-        <button class="btn live on" id="live" aria-pressed="true">Updating Live</button>
-        <button class="btn danger" id="reset">Reset</button>
-      </div>
     </div>
     <div class="grid" id="spend-grid"></div>
     <div id="spend-spoiler"></div>
@@ -521,6 +551,7 @@ header{background:radial-gradient(60% 100% at 22% 0%,#40205f 0%,rgba(26,15,43,0)
       <div class="bar"><i id="invbar" style="width:0%"></i></div>
       <div class="inv" id="spend-inv"></div>
     </div>
+    <div class="actions"><button class="btn danger" id="reset">Reset</button></div>
   </section>
 </div>
 <aside id="leftcol">
@@ -642,7 +673,7 @@ const parseAmt=s=>{s=String(s).trim().toLowerCase().replace(/[, _]/g,'');const m
 
 /* ---------- state ---------- */
 const KEY='inventorPlanner.v1';
-let S={mode:'plan',plan:{},spend:{},hist:[],shards:0,prior:0,live:true,ex:{names:true,desc:true,planner:false,spoil:false}};
+let S={mode:'plan',plan:{},spend:{},hist:[],shards:0,cur:0,incCur:true,prior:0,live:true,ex:{names:true,desc:true,planner:false,spoil:false}};
 try{const r=JSON.parse(localStorage.getItem(KEY)||'null'); if(r) S=Object.assign(S,r)}catch(e){}
 let spoilersOpen=false; // never persisted: always closed on load
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){};const st=encodeState(),c=document.getElementById('ex-cur');if(c)c.value=shareLink(st);try{history.replaceState(null,'','#'+st)}catch(e){}const h=document.getElementById('helper-link');if(h)h.href=helperUrl()};
@@ -678,10 +709,11 @@ function renderPlan(){
 }
 
 /* ---------- SPENDER ---------- */
+const budget=()=>(+S.shards||0)+(+S.cur||0);
 function spentTotal(){return ALL.reduce((t,e)=>t+costTo(e,S.spend[e.id]||0),0)}
 function spendCard(e){
   const lv=S.spend[e.id]||0, max=e.costs.length, maxed=lv>=max;
-  const remain=S.shards-spentTotal();
+  const remain=budget()-spentTotal();
   const next=maxed?0:e.costs[lv];
   const afford=!maxed&&remain>=next;
   const cur=lv?e.effects[lv-1].split(' » ').pop():null;
@@ -693,18 +725,18 @@ function spendCard(e){
   </div>`;
 }
 function renderSpend(){syncLive();
-  const spent=spentTotal(), remain=S.shards-spent;
+  const spent=spentTotal(), remain=budget()-spent;
   $('spend-grid').innerHTML=BASE.map(spendCard).join('');
   $('spend-spoiler').innerHTML = spoilersOpen ? spHead()+`<div class="grid sp">${SPOIL.map(spendCard).join('')}</div>` : gateHTML();
   const r=$('remain');r.textContent=full(remain);r.classList.toggle('over',remain<0);
-  $('spentbar').style.width=(S.shards>0?Math.min(100,spent/S.shards*100):0)+'%';
-  $('spent-line').textContent=`Spent ${full(spent)} of ${full(S.shards)}`+(remain<0?' · over budget, refund something':'');
+  $('spentbar').style.width=(budget()>0?Math.min(100,spent/budget()*100):0)+'%';
+  $('spent-line').textContent=`Spent ${full(spent)} of ${full(budget())}`+(remain<0?' · over budget, refund something':'');
   const itot=spent;
   $('spend-inv').innerHTML=invHTML(itot);
   const nx=INVENTIONS.find(v=>itot<v.req);
   $('inv-line').textContent=nx?`Progress ${full(itot)} / ${full(nx.req)} for ${nx.name}`:`Progress ${full(itot)} · all inventions unlocked`;
   $('invbar').style.width=(nx?Math.min(100,itot/nx.req*100):100)+'%';
-  $('live').classList.toggle('on',S.live);$('live').setAttribute('aria-pressed',S.live?'true':'false');$('live').textContent=S.live?'Updating Live':'Update From Calculator';
+  $('add-reset').disabled=!!S.live;
   $('bb-label').textContent='Shards left'; $('bb-val').textContent=full(remain);
   $('bb-val').classList.toggle('over',remain<0);
   const hidden=!spoilersOpen && SPOIL.some(e=>S.spend[e.id]);
@@ -740,7 +772,7 @@ document.addEventListener('click',ev=>{
   if(t.dataset.buy){
     const e=ALL.find(x=>x.id==t.dataset.buy);const lv=S.spend[e.id]||0;
     if(lv>=e.costs.length)return;
-    if(S.shards-spentTotal()<e.costs[lv]){toast('Not enough Time Shards');return}
+    if(budget()-spentTotal()<e.costs[lv]){toast('Not enough Time Shards');return}
     S.spend[e.id]=lv+1;S.hist.push(e.id);keepScroll(render);return}
   if(t.dataset.refund){
     const id=+t.dataset.refund;if(!S.spend[id])return;
@@ -755,6 +787,12 @@ inp.addEventListener('focus',()=>{S.live=false;renderSpend();save()});
 inp.addEventListener('input',()=>{S.live=false;S.shards=parseAmt(inp.value);renderSpend();save()});
 inp.addEventListener('blur',()=>{if(S.shards)inp.value=String(S.shards)});
 inp.addEventListener('keydown',e=>{if(e.key==='Enter')inp.blur()});
+$('add-reset').innerHTML=UNDO;
+const cinp=$('cur');
+cinp.value=S.cur?String(Math.floor(S.cur)):'';
+cinp.addEventListener('input',()=>{S.cur=parseAmt(cinp.value);updateTM();renderSpend();save()});
+cinp.addEventListener('blur',()=>{if(S.cur)cinp.value=String(Math.floor(S.cur))});
+cinp.addEventListener('keydown',e=>{if(e.key==='Enter')cinp.blur()});
 
 /* ======== TIME MACHINE ======== */
 function pxsvg(rows,pal){let r='';rows.forEach((row,y)=>{for(let x=0;x<row.length;x++){const c=row[x];if(c!=='.'&&pal[c])r+=`<rect x="${x}" y="${y}" width="1" height="1" fill="${pal[c]}"/>`}});
@@ -771,13 +809,22 @@ const TM_MAXFEATS={40:16,50:18,60:20,70:21,80:23,90:24,100:25,200:27,300:28,400:
 const TM_REQ={50:0,60:2500,70:7500,80:25000,90:75000,100:150000,200:0,300:2500000,400:7500000,500:15000000,600:30000000,700:75000000,800:150000000,900:300000000,1000:500000000};
 const FEATS_SHOWN=25, FEATS_TOP=31;
 const GROUP_SET={1:20,2:40,3:60,4:80}, COMPLETION=100;
+/* legendary tile limits per run (tiles in the lair, minus Necromerger and the last station, Store-O and the Rift station if you have them) */
+const TILES={40:35,50:42,60:42,70:49,80:49};
+const tilesFor=l=>l>=90?56:(TILES[l]||35);
+const tileSel=k=>{const v=S.tm['tile'+k];return v==null?S.tm.lvl>=90:!!v};
+function capInfo(){const n=tilesFor(S.tm.lvl),res=2+(tileSel('Store')?1:0)+(tileSel('Rift')?1:0),yy=n-res,xx=LEG.reduce((s,l)=>s+(S.tm.leg[l.id]|0),0);return {n,res,yy,xx}}
+/* stand-in icons until the wiki sprites are embedded (see TILE_IMG) */
+const _ring=(c,pal)=>{const rows=[];for(let y=0;y<12;y++){let r='';for(let x=0;x<12;x++){const d=Math.hypot(x-5.5,y-5.5);r+=d>6?'.':d>5?pal[0]:d>3.8?pal[1]:d>2.4?pal[2]:pal[3]}rows.push(r)}return rows};
+const NMICON=pxsvg(['....DDDD....','...DDDDDD...','..DDPPPPDD..','..DPPPPPPD..','..DPGPPGPD..','..DPPPPPPD..','..DDPWWPDD..','.DDDDPPDDDD.','.DDDDDDDDDD.','DDDDDDDDDDDD','DDDDDDDDDDDD','.DDDDDDDDDD.'],{D:'#3b2a5e',P:'#c9b8f0',G:'#7dffb0',W:'#8a79b8'});
+const RIFTICON=pxsvg(_ring(0,['a','b','c','d']),{a:'#3a1d6e',b:'#8f4fe0',c:'#d28bff',d:'#ffffff'});
 const GROUP_COL={1:['#6cc4ff','#153650'],2:['#b98cff','#33204f'],3:['#5fe08f','#17402b'],4:['#ff8a8a','#4a1c26']};
 const LEG=[
  {id:'lich',name:'Lich',grp:1,first:10,extra:5},{id:'gorgon',name:'Gorgon',grp:1,first:10,extra:5},{id:'harpy',name:'Harpy',grp:1,first:10,extra:5},
  {id:'reaper',name:'Reaper',grp:2,first:20,extra:10},{id:'cyclops',name:'Cyclops',grp:2,first:20,extra:10},{id:'archdemon',name:'Archdemon',grp:2,first:20,extra:10,max:4},
  {id:'robochicken',name:'Robo Chicken',grp:3,first:20,extra:10,max:4},{id:'shieldbot',name:'Shield Bot',grp:3,first:30,extra:15,max:4},{id:'soulstalker',name:'Soul Stalker',grp:3,first:40,extra:20},
  {id:'cursed',name:'The Cursed',grp:4,first:40,extra:20,max:1},{id:'colossus',name:'The Colossus',grp:4,first:40,extra:20,max:1},{id:'infernal',name:'The Infernal',grp:4,first:40,extra:20,max:1}];
-S.tm=Object.assign({lvl:50,feats:18,other:100,leg:{},tare:{},eff:false,hack:0,inv:{},stn:{}},S.tm||{});
+S.tm=Object.assign({lvl:50,feats:18,other:100,leg:{},tare:{},eff:false,hack:0,inv:{},stn:{},tileStore:null,tileRift:null,ignoreCap:false},S.tm||{});
 if(S.tm.tared===undefined)S.tm.tared=Object.values(S.tm.tare||{}).some(v=>v>0);
 
 const trunc=(n,d)=>{const p=Math.pow(10,d);return Math.floor(n*p+1e-9)/p};
@@ -795,7 +842,26 @@ function calcLeg(cnt,hack=(S.tm.hack|0)){
 function calcTM(){
   const t=S.tm;const base=TM_BASE[t.lvl]||0;const fm=100+t.feats*10;const lg=calcLeg(t.leg);const other=+t.other||0;
   const exact=base*fm*lg.pct*other/1e6;
-  return {base,fm,lg,other,exact,total:Math.floor(exact+1e-9)};
+  const earn=Math.floor(exact+1e-9),curAll=Math.max(0,Math.floor(+S.cur||0)),cur=(S.incCur!==false)?curAll:0;
+  return {base,fm,lg,other,exact,earn,curAll,cur,total:earn+cur};
+}
+
+function capSheet(){
+  const c=capInfo(),ign=!!S.tm.ignoreCap,st=tileSel('Store'),rf=tileSel('Rift');
+  const res=[{k:'nm',n:'Necromerger',img:NMICON,lock:1,on:1},{k:'last',n:'Last station',img:`<img class="px" src="${IMG.st_grave}" alt="">`,lock:1,on:1},
+    {k:'Store',n:'Store-O',img:`<img class="px" src="${IMG['Store-O']}" alt="">`,on:st},{k:'Rift',n:'Rift station',img:RIFTICON,on:rf}];
+  const card=r=>r.lock?`<div class="cres on lock">${r.img}<span>${r.n}<small>Always uses a tile</small></span></div>`:
+    `<button class="cres ${r.on?'on':''}" data-tile="${r.k}" aria-pressed="${r.on?'true':'false'}">${r.img}<span>${r.n}<small>${r.on?'Selected, uses a tile':'Not selected'}</small></span></button>`;
+  const tiles=[];res.filter(r=>r.on).forEach(r=>tiles.push(`<div class="ct f r" title="${r.n}">${r.img}</div>`));
+  let free=c.n-tiles.length;const owned=[];LEG.forEach(l=>{for(let i=0;i<(S.tm.leg[l.id]|0);i++)owned.push(l)});
+  owned.slice(0,Math.max(0,free)).forEach(l=>tiles.push(`<div class="ct f" title="${l.name}"><img class="px" src="${IMG['leg_'+l.id]}" alt=""></div>`));
+  while(tiles.length<c.n)tiles.push('<div class="ct"></div>');
+  const over=c.xx-c.yy;
+  return `<div class="cap-sum">${c.xx}${ign?'':` / ${c.yy}`} <small>legendaries · ${c.n} tiles</small></div>
+  ${!ign&&over>0?`<div class="note" style="color:var(--red)">${over} over the limit</div>`:''}
+  <div class="bd-h">Reserved tiles</div><div class="cap-res">${res.map(card).join('')}</div>
+  <div class="bd-h">Tiles</div><div class="cap-grid">${tiles.join('')}</div>
+  <div class="cap-ign"><span>Ignore limits</span><button class="mini ${ign?'on':''}" id="cap-ign" aria-pressed="${ign?'true':'false'}">${ign?'On':'Off'}</button></div>`;
 }
 
 /* sheet (bottom dropdown) */
@@ -820,7 +886,8 @@ function breakdownHTML(){
   const row=(a,b,c='')=>`<div class="bd ${c}"><span>${a}</span><b>${b}</b></div>`;
   let h=`<div class="bd-total">${shardImg()}<b>${full(r.total)}</b></div><div class="note">Time Shards, rounded down</div>`;
   const ex=r.exact,exs=Number.isInteger(ex)?full(ex):ex.toLocaleString('en-US',{maximumFractionDigits:2});
-  h+=`<div class="bd-calc">${full(r.base)} x ${fmtMul(r.fm/100)} x ${fmtMul(lg.pct/100)} x ${fmtMul(r.other/100)}<br>= ${exs}${Number.isInteger(ex)?'':' → '+full(r.total)}</div>`;
+  h+=`<div class="bd-calc">${full(r.base)} x ${fmtMul(r.fm/100)} x ${fmtMul(lg.pct/100)} x ${fmtMul(r.other/100)}<br>= ${exs}${Number.isInteger(ex)?'':' → '+full(r.earn)}${r.cur?`<br>+ ${full(r.cur)} current = ${full(r.total)}`:''}</div>`;
+  h+=`<label class="bd-inc${r.curAll?'':' off'}"><input type="checkbox" id="bd-inc" ${S.incCur!==false?'checked':''} ${r.curAll?'':'disabled'}><span>include current time shards</span></label>`;
   h+=`<div class="bd-h">Devourer</div>`+row(`Max Lvl ${t.lvl}`,full(r.base));
   h+=`<div class="bd-h">Feats</div>`+row(`Tier ${t.feats}`,`100% + ${t.feats} x 10% = ${r.fm}%`);
   h+=`<div class="bd-h">Legendaries</div>`+row('Base','100%');
@@ -829,6 +896,7 @@ function breakdownHTML(){
   if(lg.all)h+=row('One of each Legendary',`+${lg.comp}%`,'sub');else if(lg.types>0)h+=row(`One of each Legendary (${lg.types}/12)`,'+0%','sub mut');
   h+=row('Legendaries total',fmtPct(lg.pct)+'%','tot');
   h+=`<div class="bd-h">Other</div>`+row('Other bonuses',fmtPct(r.other)+'%');
+  if(r.curAll)h+=row('Current time shards',(r.cur?'+':'')+full(r.curAll)+(r.cur?'':' (not included)'),r.cur?'':'mut');
   return h;
 }
 
@@ -861,7 +929,7 @@ function tile(l){return `<div class="tile" id="lg-t-${l.id}"><img class="px" src
  <div class="ctr"><button class="cb" data-leg="${l.id}" data-d="-1" aria-label="Remove one ${l.name}">${MINUS}</button><input class="cn" id="lg-n-${l.id}" data-leg="${l.id}" inputmode="numeric" autocomplete="off" value="0" aria-label="${l.name} count"><button class="cb" id="lg-p-${l.id}" data-leg="${l.id}" data-d="1" aria-label="Add one ${l.name}">${PLUS}</button></div>
  <div class="tc" id="lg-c-${l.id}">-</div></div>`}
 function buildLeg(){
-  let h=`<div class="lg-head"><div><h2 class="lg-h">Legendaries</h2><div class="note" id="lg-sum"></div></div><div class="lg-total" id="lg-total">100%</div></div>
+  let h=`<div class="lg-head"><div><h2 class="lg-h"><button class="lgh" id="lg-cap-btn" aria-label="Legendary tile limits">Legendaries <span id="lg-cap"></span></button></h2><div class="note" id="lg-sum"></div></div><div class="lg-total" id="lg-total">100%</div></div>
   <div class="runes"><div class="runes-h"><span>Runes needed</span><button class="infob" id="rn-eff-info" aria-label="About effective costs">${INFO}</button></div>
   <div class="rbar"><button class="mini" id="rn-eff" aria-pressed="false">Effective costs</button><span class="rbtns"><button class="mini" id="rn-tare">Tare</button></span></div>
   <p class="note" id="rn-mode"></p>
@@ -901,6 +969,7 @@ function updateTM(){
   $('rn-eff').textContent=t.eff?'Effective costs':'Base costs';$('rn-eff').setAttribute('aria-pressed',t.eff?'true':'false');
   $('rn-mode').textContent=(ta?'Tare: sets counts to zero\n':'')+(t.eff?'Minus current runes, stations and free stations':'Total runes for selected legendaries.');fitMode();
   $('rn-note').textContent='Click the runes to add current amounts';
+  {const c=capInfo(),el=$('lg-cap');el.textContent=t.ignoreCap?`(${c.xx})`:`(${c.xx}/${c.yy})`;el.classList.toggle('full',!t.ignoreCap&&c.xx===c.yy);el.classList.toggle('over',!t.ignoreCap&&c.xx>c.yy)}
   $('lg-total').textContent=fmtPct(lg.pct)+'%';
   $('lg-sum').textContent=`100% base + ${fmtPct(lg.pct-100)}% bonus`;
   $('lg-comp').classList.toggle('on',lg.all);$('lg-comp-n').textContent=`${lg.types}/12 owned`;
@@ -926,9 +995,13 @@ document.addEventListener('focusin',e=>{if(e.target.classList&&e.target.classLis
 document.addEventListener('focusout',e=>{if(e.target.classList&&e.target.classList.contains('cn'))e.target.value=S.tm.leg[e.target.dataset.leg]|0});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&sheetFn)closeSheet();if(e.key==='Enter'&&e.target.id==='ex-load')$('ex-load-btn').click()});
 $('sheet-bg').onclick=closeSheet;$('sheet-x').onclick=closeSheet;
+document.addEventListener('change',e=>{if(e.target.id==='bd-inc'){S.incCur=e.target.checked;updateTM();save();if(sheetFn)$('sheet-body').innerHTML=sheetFn();renderSpend()}});
 document.addEventListener('click',ev=>{
   const t=ev.target.closest('button');if(!t)return;
   if(t.id==='lv100-btn'){openSheet('Level 100+ Options',hackSheet);return}
+  if(t.id==='lg-cap-btn'){openSheet('Legendary tiles',capSheet);return}
+  if(t.dataset.tile){const k=t.dataset.tile;S.tm['tile'+k]=!tileSel(k);updateTM();save();$('sheet-body').innerHTML=sheetFn();return}
+  if(t.id==='cap-ign'){S.tm.ignoreCap=!S.tm.ignoreCap;updateTM();save();$('sheet-body').innerHTML=sheetFn();return}
   if(t.dataset.hack){const l=+t.dataset.hack;S.tm.hack=(S.tm.hack|0)===l?l-1:l;updateTM();save();$('sheet-body').innerHTML=sheetFn();return}
   if(t.dataset.runes){openSheet('Current runes and stations',runeInvSheet);updInv();return}
   if(t.dataset.stn){const id=t.dataset.stn;S.tm.stn=S.tm.stn||{};if(S.tm.stn[id])delete S.tm.stn[id];else S.tm.stn[id]=1;const on=!!S.tm.stn[id];t.classList.toggle('on',on);t.setAttribute('aria-pressed',on);updInv();updateTM();save();return}
@@ -943,7 +1016,7 @@ document.addEventListener('click',ev=>{
   if(['ex-names','ex-desc','ex-src','ex-spoil'].includes(t.id)){const k={'ex-names':'names','ex-desc':'desc','ex-src':'planner','ex-spoil':'spoil'}[t.id];S.ex[k]=!S.ex[k];t.classList.toggle('on',S.ex[k]);t.setAttribute('aria-pressed',S.ex[k]);if(k==='planner')t.textContent=S.ex.planner?'Using Planner':'Using Spender';save();return}
   if(t.id==='ex-img'){$('ex-file').click();return}
   if(t.id==='ex-png'){t.disabled=true;exportPNG(S.ex).then(()=>toast('PNG saved')).catch(e=>{console.error(e);toast('Export failed')}).finally(()=>{t.disabled=false});return}
-  if(t.id==='live'){S.live=!S.live;renderSpend();save();return}
+  if(t.id==='add-reset'){if(S.live)return;S.live=true;syncLive();renderSpend();updateTM();save();return}
   if(t.id==='tm-b-lvl'){openSheet('Devourer Max Level',levelSheet);return}
   if(t.id==='tm-b-feats'){openSheet('Feat Tier',featsSheet);return}
   if(t.id==='tm-b-total'){openSheet('Time Shard Breakdown',breakdownHTML);return}
@@ -961,7 +1034,7 @@ document.addEventListener('click',ev=>{
 
 
 /* ======== LIVE UPDATE (spender shards follow the calculator) ======== */
-function syncLive(){if(S.live){S.shards=calcTM().total;const i=$('shards');if(document.activeElement!==i)i.value=S.shards?String(S.shards):''}}
+function syncLive(){if(S.live){S.shards=calcTM().earn;const i=$('shards');if(document.activeElement!==i)i.value=S.shards?String(S.shards):''}}
 
 /* ======== SHORT STATE STRING (load / current) ======== */
 const ALLIDS=[1,2,3,4,5,6,7,8,9,10,11,12,13,101,102,103,104];
@@ -993,7 +1066,11 @@ function encodeState(){
   if(t.tared)LEG.forEach(l=>w.eg(Math.min(999,(t.tare||{})[l.id]|0)));
   const x=S.ex;w.w((x.names?8:0)|(x.desc?4:0)|(x.planner?2:0)|(x.spoil?1:0),4);
   const hk=Math.min(3,S.tm.hack|0),iv=S.tm.inv||{},sn=S.tm.stn||{},hasInv=RUNES.some(([k])=>(iv[k]|0)>0)||STN.some(s=>sn[s.id]);
+  const needT2=(+S.cur>0)||S.incCur===false||t.tileStore!=null||t.tileRift!=null||!!t.ignoreCap;
+  if(!(hk||hasInv)&&needT2)w.w(0,1);
   if(hk||hasInv){w.w(1,1);w.w(hk,2);w.w(hasInv?1:0,1);if(hasInv){RUNES.forEach(([k])=>{const v=Math.max(0,Math.floor(iv[k]||0)),n=v?v.toString(2).length:0;w.w(n,6);w.w(v,n)});STN.forEach(s=>w.w(sn[s.id]?1:0,1))}}
+  if(needT2){w.w(1,1);const cu=Math.max(0,Math.floor(+S.cur||0)),n=cu?cu.toString(2).length:0;w.w(n,6);w.w(cu,n);w.w(S.incCur===false?0:1,1);
+    const tri=v=>v==null?0:(v?2:1);w.w(tri(t.tileStore),2);w.w(tri(t.tileRift),2);w.w(t.ignoreCap?1:0,1)}
   return w.str();
 }
 function loadState(str){
@@ -1009,13 +1086,15 @@ function loadState(str){
     const legs=LEG.map(l=>Math.min(l.max||999,r.eg())),tare=tared?LEG.map(l=>Math.min(l.max||999,r.eg())):null,o=Number(r.r(4));
     let hack=0,inv=null,stn=null;
     if(r.b.length-r.p>=1){const pos=r.p;try{if(r.r(1)===1n){hack=Number(r.r(2));if(r.r(1)===1n){inv={};RUNES.forEach(([k])=>{const n=Number(r.r(6));if(n>53)throw 0;inv[k]=n?Number(r.r(n)):0});stn={};STN.forEach(s=>{if(r.r(1)===1n)stn[s.id]=1})}}}catch(e){r.p=pos;hack=0;inv=null;stn=null}}
+    let cur=0,inc=true,ts=null,tr=null,ig=false;
+    if(r.b.length-r.p>=1){const pos=r.p;try{if(r.r(1)===1n){const n=Number(r.r(6));if(n>53)throw 0;cur=n?Number(r.r(n)):0;inc=r.r(1)===1n;const tv=Number(r.r(2)),rv=Number(r.r(2));if(tv>2||rv>2)throw 0;ts=tv?tv===2:null;tr=rv?rv===2:null;ig=r.r(1)===1n}}catch(e){r.p=pos;cur=0;inc=true;ts=null;tr=null;ig=false}}
     if(!r.done()||legs.some(n=>n>999)||(tare&&tare.some(n=>n>999)))return false;
-    S.plan=plan;S.spend=spend;S.hist=[];S.live=live;if(!live)S.shards=shards;S.prior=0;
+    S.plan=plan;S.spend=spend;S.hist=[];S.live=live;if(!live)S.shards=shards;S.prior=0;S.cur=cur;S.incCur=inc;S.tm.tileStore=ts;S.tm.tileRift=tr;S.tm.ignoreCap=ig;
     S.tm.hack=hack;S.tm.inv=inv||{};S.tm.stn=stn||{};S.tm.lvl=TM_LEVELS[li];S.tm.feats=fe;S.tm.other=ot/10;S.tm.eff=eff;
     S.tm.leg={};LEG.forEach((l,i)=>{if(legs[i])S.tm.leg[l.id]=legs[i]});
     S.tm.tared=tared;S.tm.tare={};if(tare)LEG.forEach((l,i)=>{if(tare[i])S.tm.tare[l.id]=tare[i]});
     S.ex={names:!!(o&8),desc:!!(o&4),planner:!!(o&2),spoil:!!(o&1)};
-    $('shards').value=S.shards?String(S.shards):'';
+    $('shards').value=S.shards?String(S.shards):'';$('cur').value=S.cur?String(Math.floor(S.cur)):'';
     syncLive();render();return true;
   }catch(e){return false}
 }
