@@ -8,7 +8,7 @@
 **Try it:** https://dvynsh3.github.io/TimeTravel-Planner-NM/  ·  **Status:** active  ·  **Platform:** browser, mobile first; installable to the home screen
 
 <!-- SCREENSHOT: hero -->
-<p align="center"><img src="docs/screenshots/timetravel-planner-nm-hero.png" width="320" alt="Time Machine tab for a max level 60 run: Devourer 1500 x Feats 300% x Legendaries 215% x Other 100% = 9675 Time Shards, with the runes needed and the first legendary group below"></p>
+<p align="center"><img src="docs/screenshots/timetravel-planner-nm-hero.png" width="320" alt="Time Machine tab for a max level 60 run: Devourer 1500 x Feats 300% x Legendaries 215% x Other 100% = 9675 Time Shards, with 9 of 40 legendaries, the runes needed and the first legendary group below"></p>
 
 > Unofficial fan project. Not affiliated with or endorsed by the NecroMerger developers.
 
@@ -18,9 +18,10 @@
 - **Now:** one page covers what to buy, how many shards a run gives, how many legendaries to make and what runes they cost. The whole setup travels in a link, which is easy to share on the community subreddit and Discord servers and to keep for later.
 
 ## What it does
-- **Plan a purchase list:** pick experiment levels and see the total shard cost and which inventions it unlocks.
-- **Spend a budget:** enter your shards, tap experiments to buy them level by level, and be stopped before you overspend. Optionally follow the shard total from the calculator.
+- **Plan a purchase list:** pick experiment levels and see the total shard cost and which inventions it unlocks, with a progress bar towards the next one.
+- **Spend a budget:** enter your current shards and the additional shards you expect (it can follow the calculator), tap experiments to buy them level by level, and be stopped before you overspend.
 - **Estimate shard yield:** combine Devourer max level, feat tier, legendaries and "Other" %, with a full breakdown and the amount needed to advance a level.
+- **See how many legendaries fit:** a counter such as (9/40) tracks the legendaries you chose against the tile limit for your run, with Store-O and Unstable Rift selectable.
 - **Plan legendaries and runes:** see the runes your legendaries need, including free stations (Effective costs) and a Tare button for what you already own.
 - **Record what you hold:** enter runes and max-level stations you already have so the counts shrink to what is still needed.
 - **Share a setup:** copy a link, or export a PNG dashboard that carries your save inside it. Load back either by pasting, uploading or dragging the image onto the page.
@@ -30,14 +31,14 @@
 <!-- SCREENSHOT: key flow -->
 <p align="center">
 <img src="docs/screenshots/timetravel-planner-nm-flow-1.png" width="32%" alt="Planner with Seasoning, Strength and other experiments selected and a total cost of 5,760 shards at the bottom">
-<img src="docs/screenshots/timetravel-planner-nm-flow-2.png" width="32%" alt="Spender with 6,000 shards entered, 450 spent and 5,550 remaining after buying four experiments">
+<img src="docs/screenshots/timetravel-planner-nm-flow-2.png" width="32%" alt="Spender with 6,000 additional shards entered, 450 spent and 5,550 remaining after buying four experiments">
 <img src="docs/screenshots/timetravel-planner-nm-flow-3.png" width="32%" alt="Runes needed for the chosen legendaries with Effective costs on, above the legendary group cards">
 </p>
 <p align="center"><sub>Left to right: plan a purchase list, spend a budget, work out the runes.</sub></p>
 
 On a wide screen the calculator stays on the left while the spender or planner fills the right:
 
-![Desktop layout with the shard calculator and legendaries on the left and the Spender with a 9,675 shard budget and eight experiments bought on the right](docs/screenshots/timetravel-planner-nm-desktop-spender.png)
+![Desktop layout with the shard calculator and legendaries on the left and the Spender with 1,500 current and 8,175 additional shards and eight experiments bought on the right](docs/screenshots/timetravel-planner-nm-desktop-spender.png)
 
 ![Desktop layout with the shard calculator and legendaries on the left and the Planner with selected experiments on the right](docs/screenshots/timetravel-planner-nm-desktop.png)
 
@@ -86,7 +87,7 @@ On a phone, use your browser's "Add to Home Screen" for an app-like icon.
 - No usage numbers collected yet.
 
 ## Version history
-Latest: **v1.9.1** (2026-11-26). Full detail in [CHANGELOG.md](CHANGELOG.md) and [Releases](../../releases).
+Latest: **v2.0.3** (2026-11-28). Full detail in [CHANGELOG.md](CHANGELOG.md) and [Releases](../../releases).
 | Version | Date | What changed for the user |
 |---|---|---|
 | v1.0.0 | 2026-11-21 | First public site: installable, works offline |
@@ -94,7 +95,7 @@ Latest: **v1.9.1** (2026-11-26). Full detail in [CHANGELOG.md](CHANGELOG.md) and
 | v1.3.0 | 2026-11-21 | Desktop two-column layout |
 | v1.6.0 | 2026-11-23 | Level 100+ options, rune stock, legendary limits |
 | v1.9.0 | 2026-11-25 | Free-station rune costs follow the game |
-| v1.9.1 | 2026-11-26 | Correct top feat tiers for max levels 400 to 1000 |
+| v2.0.0 | 2026-11-27 | Legendary tile limit counter and current shards in the Spender |
 
 Earlier versions are archived builds restored from local backups; the source at each tag is the repository snapshot at upload, not the original code for that version. The v0.x entries in the changelog describe builds that no longer exist as files.
 
