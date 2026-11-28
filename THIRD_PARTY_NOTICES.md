@@ -2,6 +2,9 @@
 
 This is an unofficial fan tool. It is not affiliated with or endorsed by the developers of NecroMerger.
 
+## This project's own licence
+The original code in this repository is licensed under the MIT License (see LICENSE). That licence does not cover the NecroMerger game art, names and data, or the third-party fonts described below.
+
 ## NecroMerger game content
 Sprites (experiments, legendaries, runes, Time Machine, Time Shard icon), names and game data belong to the NecroMerger developers and are used here to describe the game for players. Images and numbers were taken from the NecroMerger Wiki (https://necromerger.wiki.gg/), whose text content is available under CC BY-SA 4.0. If a rights holder asks for anything to be removed, it will be removed.
 
